@@ -21,10 +21,14 @@ public final class ConfigParser {
     private static final Logger LOG = LoggerFactory.getLogger(ConfigParser.class);
     /**
      * 指定Job配置路径，ConfigParser会解析Job、Plugin、Core全部信息，并以Configuration返回
+     * 解析DataX自带配置信息，由默认指定的core。json文件
+     * 解析读写插件配置信息，由job.json指定的reader和writer插件信息
      */
     public static Configuration parse(final String jobPath) {
         Configuration configuration = ConfigParser.parseJobConfig(jobPath);
-
+        /*
+         * 合并conf/core.json的配置文件
+         * */
         configuration.merge(
                 ConfigParser.parseCoreConfig(CoreConstant.DATAX_CONF_PATH),
                 false);
@@ -39,7 +43,9 @@ public final class ConfigParser {
 
         String postHandlerName = configuration.getString(
                 CoreConstant.DATAX_JOB_POSTHANDLER_PLUGINNAME);
-
+        /*
+        * 添加读写插件的列表待加载
+        * */
         Set<String> pluginList = new HashSet<String>();
         pluginList.add(readerPluginName);
         pluginList.add(writerPluginName);
@@ -50,7 +56,11 @@ public final class ConfigParser {
         if(StringUtils.isNotEmpty(postHandlerName)) {
             pluginList.add(postHandlerName);
         }
+
         try {
+            /*
+            * 加载指定的插件配置信息，并且和全局的配置文件进行合并
+            * */
             configuration.merge(parsePluginConfig(new ArrayList<String>(pluginList)), false);
         }catch (Exception e){
             //吞掉异常，保持log干净。这里message足够。

@@ -127,13 +127,17 @@ public class Engine {
 
         BasicParser parser = new BasicParser();
         CommandLine cl = parser.parse(options, args);
-
+        /*
+        *   获取job 的配置路径信息
+        */
         String jobPath = cl.getOptionValue("job");
 
         // 如果用户没有明确指定jobid, 则 datax.py 会指定 jobid 默认值为-1
         String jobIdString = cl.getOptionValue("jobid");
         RUNTIME_MODE = cl.getOptionValue("mode");
-
+        /*
+        * 解析配置信息
+        * */
         Configuration configuration = ConfigParser.parse(jobPath);
 
         long jobId;
@@ -168,6 +172,11 @@ public class Engine {
 
         ConfigurationValidate.doValidate(configuration);
         Engine engine = new Engine();
+        /*
+        * start过程做了两件事情
+        * 创建jobContainer
+        * 启动JobContainer
+        * */
         engine.start(configuration);
     }
 

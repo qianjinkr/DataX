@@ -92,6 +92,14 @@ public class JobContainer extends AbstractContainer {
      * jobContainer主要负责的工作全部在start()里面，包括init、prepare、split、scheduler、
      * post以及destroy和statistics
      */
+    /**
+     * 执行job的preHandle()操作，暂时不关注
+     * 执行job的init()操作，需重点关注
+     * 执行job的preoare()操作，暂时不关注
+     * 执行job的split()操作，需要重点关注
+     * 执行job的shcedule()操作，需重点关注
+     * 执行job的post()和postHandle()操作
+     */
     @Override
     public void start() {
         LOG.info("DataX jobContainer starts job.");
