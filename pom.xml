@@ -47,25 +47,15 @@
         <module>transformer</module>
 
         <!-- reader -->
-        <module>mysqlreader</module>
         <module>txtfilereader</module>
-        <module>streamreader</module>
         <module>ossreader</module>
-        <module>ftpreader</module>
 
         <!-- writer -->
-        <module>mysqlwriter</module>
         <module>txtfilewriter</module>
-        <module>ftpwriter</module>
-        <module>streamwriter</module>
         <module>osswriter</module>
 
         <!-- common support module -->
-        <module>plugin-rdbms-util</module>
         <module>plugin-unstructured-storage-util</module>
-        <module>hbase20xsqlreader</module>
-        <module>hbase20xsqlwriter</module>
-        <module>kuduwriter</module>
     </modules>
 
     <dependencyManagement>
